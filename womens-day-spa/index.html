@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description"
+    content="Uma homenagem especial para o Dia das Mulheres — para a minha mãe e para a minha amiga.">
+  <title>Homenagem — Dia das Mulheres ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+       SPLASH SCREEN — Animação de abertura
+  ══════════════════════════════════════════ -->
+  <div id="splash-screen" aria-hidden="true">
+    <canvas id="splash-particles" aria-hidden="true"></canvas>
+
+    <div id="splash-heart-wrap">
+      <svg id="splash-heart" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="hg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#ff7eb3" />
+            <stop offset="50%" stop-color="#e8527a" />
+            <stop offset="100%" stop-color="#9b1f5e" />
+          </radialGradient>
+          <filter id="hglow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path
+          d="M50 85 C50 85 5 55 5 28 C5 13 17 3 30 3 C38 3 45 8 50 15 C55 8 62 3 70 3 C83 3 95 13 95 28 C95 55 50 85 50 85Z"
+          fill="url(#hg)" filter="url(#hglow)" />
+      </svg>
+    </div>
+
+    <div id="splash-text" aria-live="polite">
+      <span id="splash-line1">FELIZ DIA</span>
+      <span id="splash-line2">DAS MULHERES</span>
+      <div id="splash-sub">8 de Março ✦ Para você, que ilumina o mundo</div>
+    </div>
+
+    <div id="splash-skip" role="button" tabindex="0" aria-label="Pular animação">toque para continuar</div>
+  </div>
+
+  <!-- ─── GLOBAL CURSOR TRAIL ─── -->
+  <canvas id="cursor-canvas" aria-hidden="true"></canvas>
+
+  <!-- ─── TRANSITION BURST CANVAS (overlaid during phase changes) ─── -->
+  <canvas id="transition-canvas" aria-hidden="true"></canvas>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 1 — PORTAL
+  ══════════════════════════════════════════ -->
+  <section id="portal" class="phase active" role="main" aria-label="Portal de entrada">
+    <canvas id="portal-bg-canvas" aria-hidden="true"></canvas>
+
+    <div class="portal-content">
+      <p class="intro-phrase" id="intro-phrase">
+        É simples mas é de coração
+      </p>
+
+      <!-- Selection Buttons -->
+      <div class="select-grid" role="navigation" aria-label="Escolha uma homenagem">
+
+
+        <!-- MAMÃE card -->
+        <div class="btn-wrap">
+          <button class="select-btn btn-mae" id="btn-mae" aria-label="Abrir homenagem para a Mamãe">
+            <div class="btn-glow-ring btn-glow-mae"></div>
+            <div class="btn-icon-wrap">
+              <svg class="btn-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path
+                  d="M30 52 C30 52 6 37 6 20 C6 11 13 5 21 5 C26 5 29 8 30 11 C31 8 34 5 39 5 C47 5 54 11 54 20 C54 37 30 52 30 52Z"
+                  fill="url(#mg)" />
+                <defs>
+                  <radialGradient id="mg" cx="40%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#f4789a" />
+                    <stop offset="60%" stop-color="#e8527a" />
+                    <stop offset="100%" stop-color="#9b1f5e" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="btn-text-col">
+              <span class="btn-label">MAMÃE</span>
+              <span class="btn-sub">para a mulher que me criou</span>
+            </div>
+          </button>
+          <div class="btn-photo-preview mae-photo" aria-hidden="true">
+            <img src="./images/mae-final.jpg" alt="Mamãe" loading="lazy">
+          </div>
+        </div><!-- /.btn-wrap -->
+
+
+        <!-- Divider -->
+        <div class="select-divider" aria-hidden="true">
+          <span class="divider-dot"></span>
+          <span class="divider-line"></span>
+          <span class="divider-dot"></span>
+        </div>
+
+        <!-- MIGUXA card -->
+        <div class="btn-wrap">
+          <button class="select-btn btn-amiga" id="btn-amiga" aria-label="Abrir homenagem para a Miguxa">
+            <div class="btn-glow-ring btn-glow-amiga"></div>
+            <div class="btn-icon-wrap">
+              <svg class="btn-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <circle cx="22" cy="20" r="9" fill="url(#ag1)" />
+                <circle cx="38" cy="20" r="9" fill="url(#ag2)" />
+                <path d="M8 50 C8 38 15 32 22 32 C26 32 30 34 30 34 C30 34 34 32 38 32 C45 32 52 38 52 50"
+                  stroke="url(#ag3)" stroke-width="3" stroke-linecap="round" fill="none" />
+                <defs>
+                  <radialGradient id="ag1" cx="40%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#6ef0db" />
+                    <stop offset="100%" stop-color="#38d9c0" />
+                  </radialGradient>
+                  <radialGradient id="ag2" cx="40%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#c084fc" />
+                    <stop offset="100%" stop-color="#9b59f5" />
+                  </radialGradient>
+                  <linearGradient id="ag3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#38d9c0" />
+                    <stop offset="100%" stop-color="#9b59f5" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="btn-text-col">
+              <span class="btn-label">MIGUXA</span>
+              <span class="btn-sub">para lorinha tonta</span>
+            </div>
+          </button>
+          <div class="btn-photo-preview amiga-photo" aria-hidden="true">
+            <img src="./images/miguxa-final.jpg" alt="Miguxa" loading="lazy">
+          </div>
+        </div><!-- /.btn-wrap -->
+
+
+      </div><!-- /.select-grid -->
+    </div><!-- /.portal-content -->
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 2 — MÃE
+  ══════════════════════════════════════════ -->
+  <section id="section-mae" class="phase" aria-label="Homenagem à Mãe">
+    <!-- Scrollable slides container -->
+    <div id="mae-slides" class="story-slides" aria-label="Slides da homenagem Mamãe">
+
+      <!-- SLIDE 1 -->
+      <div class="story-slide" id="mae-slide-1" data-index="0">
+        <div class="story-slide-bg slide-bg-mae-1" aria-hidden="true"></div>
+        <div class="story-slide-overlay"></div>
+        <div class="story-text-block">
+          <span class="story-word word-huge" data-delay="0">MAMÃE</span>
+          <span class="story-word word-medium" data-delay="120">VOCÊ É A MINHA</span>
+          <span class="story-word word-accent" data-delay="260">MAIOR INSPIRAÇÃO</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="story-slide" id="mae-slide-2" data-index="1">
+        <div class="story-slide-bg slide-bg-mae-2" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-left"></div>
+        <div class="story-text-block text-right">
+          <span class="story-word word-medium" data-delay="0">O SEU AMOR,</span>
+          <span class="story-word word-huge" data-delay="150">CADA</span>
+          <span class="story-word word-huge word-stroke" data-delay="270">CUIDADO</span>
+          <span class="story-word word-small" data-delay="420">MOLDARAM QUEM EU SOU</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="story-slide" id="mae-slide-3" data-index="2">
+        <div class="story-slide-bg slide-bg-mae-3" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-right"></div>
+        <div class="story-text-block text-left">
+          <span class="story-word word-medium" data-delay="0">ENSINOU-ME A SER</span>
+          <span class="story-word word-huge" data-delay="150">FORTE</span>
+          <span class="story-word word-small" data-delay="420">PARA ENFRENTAR A VIDA</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 (FINAL CARD EM TELA CHEIA) -->
+      <div class="story-slide slide-final" id="mae-slide-4" data-index="3">
+        <div class="story-slide-bg slide-bg-mae-final" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-center"></div>
+        <div class="final-text-fullscreen">
+          <span class="story-word word-small word-glow" data-delay="0">FELIZ DIA DAS</span>
+          <span class="story-word word-huge" data-delay="150">MULHERES</span>
+          <span class="story-word word-accent" data-delay="500">Obrigado por tudo. Você é incrível! ♥</span>
+        </div>
+      </div>
+
+    </div><!-- /#mae-slides -->
+
+    <!-- Slide indicator dots -->
+    <div class="slide-dots" id="mae-slide-dots" aria-label="Indicador de slide">
+      <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="dot" data-slide="3" aria-label="Slide 4"></button>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="story-scroll-hint" id="mae-scroll-hint" aria-hidden="true">
+      <span>↓ deslize para continuar</span>
+    </div>
+
+    <!-- Back -->
+    <button class="back-btn" id="back-from-mae" aria-label="Voltar ao portal">
+      <span class="back-arrow">←</span> Voltar
+    </button>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PHASE 3 — AMIGA (redesign)
+  ══════════════════════════════════════════ -->
+  <section id="section-amiga" class="phase" aria-label="Homenagem à Amiga">
+
+    <!-- Scrollable slides container -->
+    <div id="amiga-slides" class="story-slides" aria-label="Slides da homenagem Miguxa">
+
+      <!-- SLIDE 1 -->
+      <div class="story-slide" id="amiga-slide-1" data-index="0">
+        <div class="story-slide-bg slide-bg-amiga-1" aria-hidden="true"></div>
+        <div class="story-slide-overlay"></div>
+        <div class="story-text-block">
+          <span class="story-word word-huge" data-delay="0">VOCÊ</span>
+          <span class="story-word word-medium" data-delay="120">É A AMIZADE</span>
+          <span class="story-word word-accent" data-delay="260">QUE EU ESCOLHI</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="story-slide" id="amiga-slide-2" data-index="1">
+        <div class="story-slide-bg slide-bg-amiga-2" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-left"></div>
+        <div class="story-text-block text-right">
+          <span class="story-word word-medium" data-delay="0">OBRIGADO POR</span>
+          <span class="story-word word-huge word-stroke" data-delay="150">SER MINHA</span>
+          <span class="story-word word-huge" data-delay="270">AMIGA</span>
+          <span class="story-word word-small" data-delay="520">E DE NADA POR SER SEU AMIGO</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="story-slide" id="amiga-slide-3" data-index="2">
+        <div class="story-slide-bg slide-bg-amiga-3" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-right"></div>
+        <div class="story-text-block text-left">
+          <span class="story-word word-medium" data-delay="0">ATÉ AS</span>
+          <span class="story-word word-huge" data-delay="150">LOUCURAS</span>
+          <span class="story-word word-small" data-delay="420">SÃO MELHORES COM VOCÊ</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 (FINAL CARD EM TELA CHEIA) -->
+      <div class="story-slide slide-final" id="amiga-slide-4" data-index="3">
+        <div class="story-slide-bg slide-bg-amiga-final" aria-hidden="true"></div>
+        <div class="story-slide-overlay overlay-center"></div>
+        <div class="final-text-fullscreen">
+          <span class="story-word word-small word-glow" data-delay="0">FELIZ DIA DAS</span>
+          <span class="story-word word-huge" data-delay="150">MULHERES</span>
+          <span class="story-word word-accent" data-delay="500">A vida é mais colorida com você. Te adoro! 💞</span>
+        </div>
+      </div>
+
+    </div><!-- /#amiga-slides -->
+
+    <!-- Slide indicator dots -->
+    <div class="slide-dots" id="amiga-slide-dots" aria-label="Indicador de slide">
+      <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="dot" data-slide="3" aria-label="Slide 4"></button>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="story-scroll-hint" id="amiga-scroll-hint" aria-hidden="true">
+      <span>↓ deslize para continuar</span>
+    </div>
+
+    <!-- Back -->
+    <button class="back-btn" id="back-from-amiga" aria-label="Voltar ao portal">
+      <span class="back-arrow">←</span> Voltar
+    </button>
+  </section>
+
+
+
+  <script src="js/app.js" defer></script>
+</body>
+
+</html>
